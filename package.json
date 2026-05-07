@@ -1,0 +1,33 @@
+{
+  "name": "refund-dashboard",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": "Victor Martins Dias <victormartinsjob@gmail.com> (https://github.com/VictorMartinsD)",
+  "description": "Dashboard para controle de despesas corporativas com fluxo de solicitações e cálculos de reembolso em tempo real.",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "check": "npm run lint && npm run format",
+    "format": "prettier --write .",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "**/*.{html,css}": "prettier --write",
+    "**/*.js": ["eslint --fix", "prettier --write"]
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.3.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.6.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "latest",
+    "vite": "^8.0.3"
+  }
+}

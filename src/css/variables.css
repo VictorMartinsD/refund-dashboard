@@ -1,0 +1,9 @@
+[data-theme="dark"] {
+  --color-background: #0f172a;
+  --color-surface: #111827;
+  --color-text: #f9fafb;
+  --color-muted: #94a3b8;
+  --color-border: #334155;
+  --color-accent: #f9fafb;
+  --color-accent-contrast: #0f172a;
+}
