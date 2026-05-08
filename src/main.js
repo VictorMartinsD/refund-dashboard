@@ -18,7 +18,11 @@ function initApp() {
 
 initApp();
 
+const form = document.querySelector("form");
 const amount = document.getElementById("amount");
+const expense = document.getElementById("expense");
+const category = document.getElementById("category");
+const expenseList = document.querySelector("ul");
 
 amount.oninput = () => {
   const value = Number(amount.value.replace(/\D/g, "")) / 100;
@@ -33,4 +37,43 @@ function formatCurrencyBRL(value) {
   });
 
   return value;
+}
+
+form.onsubmit = (event) => {
+  event.preventDefault();
+
+  const newExpense = {
+    id: new Date().getTime(),
+    expense: expense.value,
+    category_id: category.value,
+    category_name: category.options[category.selectedIndex].text,
+    amount: amount.value,
+    created_at: new Date(),
+  };
+
+  expenseAdd(newExpense);
+};
+
+function expenseAdd(newExpense) {
+  try {
+    const expenseItem = document.createElement("li");
+    expenseItem.classList.add("expense");
+
+    const svgNS = "http://www.w3.org/2000/svg";
+
+    const expenseIcon = document.createElementNS(svgNS, "svg");
+    expenseIcon.classList.add("expense-icon");
+    expenseIcon.setAttribute("role", "img");
+    expenseIcon.setAttribute("aria-label", newExpense.category_name);
+
+    const useEl = document.createElementNS(svgNS, "use");
+    useEl.setAttribute("href", `./src/assets/img/icons.svg#icon-${newExpense.category_id}`);
+
+    expenseIcon.appendChild(useEl);
+    expenseItem.append(expenseIcon);
+    expenseList.append(expenseItem);
+  } catch (error) {
+    alert("Não foi possível atualizar a lista de despesas.");
+    console.error(error);
+  }
 }
