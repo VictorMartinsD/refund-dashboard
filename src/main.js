@@ -69,8 +69,18 @@ function expenseAdd(newExpense) {
     const useEl = document.createElementNS(svgNS, "use");
     useEl.setAttribute("href", `./src/assets/img/icons.svg#icon-${newExpense.category_id}`);
 
+    const expenseInfo = document.createElement("div");
+    expenseInfo.classList.add("expense-info");
+
+    const expenseName = document.createElement("strong");
+    expenseName.textContent = newExpense.expense;
+
+    const expenseCategory = document.createElement("span");
+    expenseCategory.textContent = newExpense.category_name;
+
+    expenseInfo.append(expenseName, expenseCategory);
     expenseIcon.appendChild(useEl);
-    expenseItem.append(expenseIcon);
+    expenseItem.append(expenseIcon, expenseInfo);
     expenseList.append(expenseItem);
   } catch (error) {
     alert("Não foi possível atualizar a lista de despesas.");
