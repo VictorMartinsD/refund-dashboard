@@ -21,7 +21,16 @@ initApp();
 const amount = document.getElementById("amount");
 
 amount.oninput = () => {
-  const value = amount.value.replace(/\D/g, "");
+  const value = Number(amount.value.replace(/\D/g, "")) / 100;
 
-  amount.value = value;
+  amount.value = formatCurrencyBRL(value);
 };
+
+function formatCurrencyBRL(value) {
+  value = value.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+
+  return value;
+}
