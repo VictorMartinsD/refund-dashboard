@@ -78,9 +78,13 @@ function expenseAdd(newExpense) {
     const expenseCategory = document.createElement("span");
     expenseCategory.textContent = newExpense.category_name;
 
+    const expenseAmount = document.createElement("span");
+    expenseAmount.classList.add("expense-amount");
+    expenseAmount.innerHTML = `<small>R$</small>${newExpense.amount.toUpperCase().replace("R$", "")}`;
+
     expenseInfo.append(expenseName, expenseCategory);
     expenseIcon.appendChild(useEl);
-    expenseItem.append(expenseIcon, expenseInfo);
+    expenseItem.append(expenseIcon, expenseInfo, expenseAmount);
     expenseList.append(expenseItem);
   } catch (error) {
     alert("Não foi possível atualizar a lista de despesas.");
