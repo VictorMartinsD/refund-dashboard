@@ -82,9 +82,18 @@ function expenseAdd(newExpense) {
     expenseAmount.classList.add("expense-amount");
     expenseAmount.innerHTML = `<small>R$</small>${newExpense.amount.toUpperCase().replace("R$", "")}`;
 
+    const removeIcon = document.createElementNS(svgNS, "svg");
+    removeIcon.classList.add("remove-icon");
+    removeIcon.setAttribute("role", "img");
+    removeIcon.setAttribute("aria-label", "remover");
+
+    const removeIconEl = document.createElementNS(svgNS, "use");
+    removeIconEl.setAttribute("href", `./src/assets/img/icons.svg#icon-remove`);
+
+    removeIcon.appendChild(removeIconEl);
     expenseInfo.append(expenseName, expenseCategory);
     expenseIcon.appendChild(useEl);
-    expenseItem.append(expenseIcon, expenseInfo, expenseAmount);
+    expenseItem.append(expenseIcon, expenseInfo, expenseAmount, removeIcon);
     expenseList.append(expenseItem);
   } catch (error) {
     alert("Não foi possível atualizar a lista de despesas.");
