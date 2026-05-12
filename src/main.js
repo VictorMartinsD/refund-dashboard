@@ -137,3 +137,15 @@ function updateTotals() {
     console.error(error);
   }
 }
+
+expenseList.addEventListener("click", (event) => {
+  const removeIcon = event.target.closest(".remove-icon");
+
+  if (!removeIcon) return;
+
+  const item = removeIcon.closest(".expense");
+  if (!item) return;
+
+  item.remove();
+  updateTotals();
+});
