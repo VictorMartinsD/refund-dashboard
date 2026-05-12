@@ -1,9 +1,94 @@
+.theme-toggle-wrapper {
+  position: fixed;
+  right: 1rem;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+@media (min-width: 1100px) {
+  .theme-toggle-wrapper {
+    right: calc((100% - 942px) / 2 - 4rem);
+  }
+}
+
+@media (max-width: 1100px) {
+  .theme-toggle-wrapper {
+    right: 1.5rem;
+  }
+}
+
 .theme-toggle {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   cursor: pointer;
-  border: 1px solid currentColor;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  padding: 0.4rem 0.6rem;
   border-radius: 999px;
-  padding: 0.625rem 1rem;
-  background: transparent;
-  color: inherit;
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease,
+    transform 120ms ease;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
   font: inherit;
+}
+
+.theme-toggle:hover {
+  border-color: var(--color-border-hover, var(--color-border));
+  transform: translateY(-2px);
+}
+
+.theme-toggle:active {
+  transform: translateY(0);
+}
+
+.theme-toggle:focus {
+  outline: 2px solid transparent;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-accent) 18%, transparent);
+}
+
+.theme-toggle .theme-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  display: block;
+  flex: none;
+}
+
+.theme-toggle[data-tooltip]:hover::after,
+.theme-toggle[data-tooltip]:focus::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: calc(1rem + 2.2rem);
+  right: 1rem;
+  white-space: nowrap;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  box-shadow: 0 6px 18px rgba(2, 6, 23, 0.08);
+  transform-origin: top right;
+  transition:
+    transform 160ms ease,
+    opacity 160ms ease;
+  opacity: 1;
+}
+
+.theme-toggle[data-theme="light"] {
+  border-color: var(--color-border);
+  color: var(--color-text);
+  background: color-mix(in srgb, var(--color-surface) 92%, var(--color-accent) 8%);
+}
+
+.theme-toggle[data-theme="dark"] {
+  border-color: var(--color-border);
+  color: var(--color-text);
+  background: color-mix(in srgb, var(--color-surface) 94%, var(--color-accent) 6%);
 }

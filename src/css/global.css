@@ -7,7 +7,7 @@
 body {
   background: var(--color-background);
   color: var(--color-text);
-  font-family: var(--font-main);
+  font-family: var(--font-main, "Open Sans", sans-serif);
   transition:
     background-color 0.2s ease,
     color 0.2s ease;
@@ -31,20 +31,20 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #e4ece9;
+  background: color-mix(in srgb, var(--color-surface) 70%, var(--color-border) 30%);
 }
 
 body {
   width: 100%;
   height: 100vh;
 
-  background-color: #e4ece9;
+  background-color: var(--color-background);
 
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  color: #1f2523;
+  color: var(--color-text);
 }
 
 .logo {
@@ -52,6 +52,13 @@ body {
   height: 32px;
   display: block;
   margin: 3rem 0 2rem;
+}
+
+@media (max-width: 1100px) {
+  .logo {
+    margin-left: 1.5rem;
+    margin-right: auto;
+  }
 }
 
 main section {
@@ -62,7 +69,7 @@ main section {
 }
 
 form {
-  background-color: #f9fbfa;
+  background-color: var(--color-surface);
   border-radius: 1rem;
   padding: 2.5rem;
   max-width: 462px;
@@ -77,7 +84,7 @@ form h1 {
 
 form p {
   font-size: 0.87rem;
-  color: #4d5c57;
+  color: var(--color-muted);
   margin: 0.75rem 0 2.5rem;
 }
 
@@ -89,12 +96,12 @@ fieldset {
 fieldset legend {
   text-transform: uppercase;
   font-size: 0.62rem;
-  color: #4d5c57;
+  color: var(--color-muted);
   margin-bottom: 0.5rem;
 }
 
 fieldset:focus-within legend {
-  color: #1f8459;
+  color: var(--color-accent);
   font-weight: 700;
 }
 
@@ -103,10 +110,10 @@ select {
   flex: 1;
   height: 3rem;
   border-radius: 0.5rem;
-  border: 1px solid #cdd5d2;
+  border: 1px solid var(--color-border);
   padding: 0 1rem;
   font-size: 0.87rem;
-  color: #1f2523;
+  color: var(--color-text);
   background-color: transparent;
   outline: none;
 }
@@ -117,16 +124,24 @@ select {
   background-repeat: no-repeat;
   background-position: right 0.7rem top 50%;
   background-size: 1.25rem auto;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+select option {
+  background-color: var(--color-surface);
+  color: var(--color-text);
 }
 
 input::placeholder,
 select:invalid {
-  color: #4d5c57;
+  color: var(--color-muted);
 }
 
 input:focus,
 select:focus {
-  border: 1.5px solid #1f8459;
+  border: 1.5px solid var(--color-accent);
 }
 
 .inputs-row {
@@ -150,8 +165,8 @@ form button {
   border-radius: 0.5rem;
   border: none;
   font-size: 0.87rem;
-  color: #ffffff;
-  background-color: #1f8459;
+  color: var(--color-accent-contrast, #fff);
+  background-color: var(--color-accent);
   font-weight: 700;
   padding: 1rem 1.25rem;
   cursor: pointer;
@@ -160,7 +175,7 @@ form button {
 }
 
 button:hover {
-  background-color: #2cb178;
+  background-color: color-mix(in srgb, var(--color-accent) 86%, var(--color-accent-contrast) 14%);
 }
 
 form button:last-child {
@@ -168,7 +183,7 @@ form button:last-child {
 }
 
 aside {
-  background-color: #f9fbfa;
+  background-color: var(--color-surface);
   border-radius: 1rem;
   padding: 2.5rem;
   max-width: 462px;
@@ -182,35 +197,35 @@ aside header {
 
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  border-bottom-color: #e4ece9;
+  border-bottom-color: var(--color-border);
   padding-bottom: 1.5rem;
   margin-bottom: 1.5rem;
 }
 aside header p {
-  color: #4d5c57;
+  color: var(--color-muted);
   font-weight: 400;
   font-size: 1rem;
 }
 
 aside header p span {
-  color: #4d5c57;
+  color: var(--color-muted);
   font-weight: 400;
   font-size: 0.87rem;
 }
 
 aside header p i {
-  color: #cdd5d2;
+  color: var(--color-border);
   margin: 0 0.5rem;
   font-style: normal;
 }
 
 aside header h2 {
   font-size: 1rem;
-  color: #1f2523;
+  color: var(--color-text);
 }
 
 aside header small {
-  color: #4d5c57;
+  color: var(--color-muted);
   font-weight: 400;
   font-size: 0.75rem;
   margin-right: 0.25rem;
@@ -250,23 +265,23 @@ aside ul {
 
 .expense-info strong {
   font-size: 0.87rem;
-  color: #1f2523;
+  color: var(--color-text);
 }
 
 .expense-info span {
   font-size: 0.75rem;
-  color: #4d5c57;
+  color: var(--color-muted);
 }
 
 .expense-amount {
   font-size: 0.87rem;
-  color: #1f2523;
+  color: var(--color-text);
   font-weight: 600;
 }
 
 .expense-amount small {
   font-size: 0.75rem;
-  color: #4d5c57;
+  color: var(--color-muted);
   font-weight: 400;
   margin-right: 0.25rem;
 }
