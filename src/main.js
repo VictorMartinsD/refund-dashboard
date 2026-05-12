@@ -98,6 +98,7 @@ function expenseAdd(newExpense) {
     expenseItem.append(expenseIcon, expenseInfo, expenseAmount, removeIcon);
     expenseList.append(expenseItem);
 
+    formClear();
     updateTotals();
   } catch (error) {
     alert("Não foi possível atualizar a lista de despesas.");
@@ -149,3 +150,11 @@ expenseList.addEventListener("click", (event) => {
   item.remove();
   updateTotals();
 });
+
+function formClear() {
+  expense.value = "";
+  category.value = "";
+  amount.value = "";
+
+  expense.focus();
+}
