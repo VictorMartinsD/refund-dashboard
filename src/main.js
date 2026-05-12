@@ -26,8 +26,11 @@ const expenseList = document.querySelector("ul");
 const expensesTotal = document.querySelector("aside header h2");
 const expensesQuantity = document.querySelector("aside header p span");
 
+const maxAmountDigits = 13;
+
 amount.oninput = () => {
-  const value = Number(amount.value.replace(/\D/g, "")) / 100;
+  const digits = amount.value.replace(/\D/g, "").slice(0, maxAmountDigits);
+  const value = Number(digits) / 100;
 
   amount.value = formatCurrencyBRL(value);
 };
