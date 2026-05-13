@@ -1,8 +1,3 @@
-/*
-  AUTOR: Victor Martins
-  DESCRICAO: Ponto de entrada principal da aplicação.
-*/
-
 import "./css/index.css";
 import { initTheme } from "./features/theme/theme.js";
 import { ThemeToggle } from "./components/ThemeToggle/ThemeToggle.js";
