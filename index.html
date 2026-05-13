@@ -53,13 +53,25 @@
 
           <fieldset>
             <legend>Nome da despesa</legend>
-            <input type="text" id="expense" name="expense" maxlength="60" required />
+            <input
+              type="text"
+              id="expense"
+              name="expense"
+              maxlength="60"
+              title="Digite o nome ou descrição da despesa (máximo 60 caracteres)"
+              aria-label="Nome da despesa"
+              required />
           </fieldset>
 
           <div class="inputs-row">
             <fieldset>
               <legend>Categoria</legend>
-              <select id="category" name="category" required>
+              <select
+                id="category"
+                name="category"
+                title="Selecione a categoria da despesa"
+                aria-label="Categoria da despesa"
+                required>
                 <option value="" disabled selected hidden>Selecione</option>
                 <option value="food">Alimentação</option>
                 <option value="accommodation">Hospedagem</option>
@@ -71,7 +83,14 @@
 
             <fieldset>
               <legend>Valor da despesa</legend>
-              <input type="text" name="amount" id="amount" placeholder="0,00" required />
+              <input
+                type="text"
+                name="amount"
+                id="amount"
+                placeholder="0,00"
+                title="Digite o valor da despesa em reais (ex: 150,00)"
+                aria-label="Valor da despesa em reais"
+                required />
             </fieldset>
           </div>
 
