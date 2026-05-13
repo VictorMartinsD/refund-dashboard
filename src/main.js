@@ -4,17 +4,9 @@ import { ThemeToggle } from "./components/ThemeToggle/ThemeToggle.js";
 
 document.documentElement.classList.add("ready");
 
-function initApp() {
-  initTheme();
-
-  try {
-    document.body.appendChild(ThemeToggle());
-  } catch (err) {
-    console.warn("ThemeToggle failed to mount:", err);
-  }
-}
-
-initApp();
+const SVG_NS = "http://www.w3.org/2000/svg";
+const ICONS_SPRITE = "./src/assets/img/icons.svg";
+const MAX_AMOUNT_DIGITS = 13;
 
 const form = document.querySelector("form");
 const amount = document.getElementById("amount");
@@ -24,10 +16,20 @@ const expenseList = document.querySelector("ul");
 const expensesTotal = document.querySelector("aside header h2");
 const expensesQuantity = document.querySelector("aside header p span");
 
-const maxAmountDigits = 13;
+function initApp() {
+  initTheme();
+
+  try {
+    document.body.appendChild(ThemeToggle());
+  } catch (error) {
+    console.warn("ThemeToggle failed to mount:", error);
+  }
+}
+
+initApp();
 
 amount.oninput = () => {
-  const digits = amount.value.replace(/\D/g, "").slice(0, maxAmountDigits);
+  const digits = amount.value.replace(/\D/g, "").slice(0, MAX_AMOUNT_DIGITS);
   const value = Number(digits) / 100;
 
   amount.value = formatCurrencyBRL(value);
@@ -62,15 +64,13 @@ function expenseAdd(newExpense) {
     const expenseItem = document.createElement("li");
     expenseItem.classList.add("expense");
 
-    const svgNS = "http://www.w3.org/2000/svg";
-
-    const expenseIcon = document.createElementNS(svgNS, "svg");
+    const expenseIcon = document.createElementNS(SVG_NS, "svg");
     expenseIcon.classList.add("expense-icon");
     expenseIcon.setAttribute("role", "img");
     expenseIcon.setAttribute("aria-label", newExpense.category_name);
 
-    const useEl = document.createElementNS(svgNS, "use");
-    useEl.setAttribute("href", `./src/assets/img/icons.svg#icon-${newExpense.category_id}`);
+    const useEl = document.createElementNS(SVG_NS, "use");
+    useEl.setAttribute("href", `${ICONS_SPRITE}#icon-${newExpense.category_id}`);
 
     const expenseInfo = document.createElement("div");
     expenseInfo.classList.add("expense-info");
@@ -85,13 +85,13 @@ function expenseAdd(newExpense) {
     expenseAmount.classList.add("expense-amount");
     expenseAmount.innerHTML = `<small>R$</small>${newExpense.amount.toUpperCase().replace("R$", "")}`;
 
-    const removeIcon = document.createElementNS(svgNS, "svg");
+    const removeIcon = document.createElementNS(SVG_NS, "svg");
     removeIcon.classList.add("remove-icon");
     removeIcon.setAttribute("role", "img");
     removeIcon.setAttribute("aria-label", "Remover despesa");
 
-    const removeIconEl = document.createElementNS(svgNS, "use");
-    removeIconEl.setAttribute("href", `./src/assets/img/icons.svg#icon-remove`);
+    const removeIconEl = document.createElementNS(SVG_NS, "use");
+    removeIconEl.setAttribute("href", `${ICONS_SPRITE}#icon-remove`);
 
     removeIcon.appendChild(removeIconEl);
     expenseInfo.append(expenseName, expenseCategory);
