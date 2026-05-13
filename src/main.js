@@ -93,7 +93,7 @@ function expenseAdd(newExpense) {
     const removeIcon = document.createElementNS(svgNS, "svg");
     removeIcon.classList.add("remove-icon");
     removeIcon.setAttribute("role", "img");
-    removeIcon.setAttribute("aria-label", "remover");
+    removeIcon.setAttribute("aria-label", "Remover despesa");
 
     const removeIconEl = document.createElementNS(svgNS, "use");
     removeIconEl.setAttribute("href", `./src/assets/img/icons.svg#icon-remove`);

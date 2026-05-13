@@ -88,6 +88,7 @@ export function ThemeToggle() {
   button.addEventListener("click", async () => {
     toggleTheme();
     updateButtonState(button);
+    button.blur();
   });
 
   const observer = new MutationObserver(() => updateButtonState(button));
