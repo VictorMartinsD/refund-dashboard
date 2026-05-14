@@ -7,6 +7,7 @@ document.documentElement.classList.add("ready");
 const SVG_NS = "http://www.w3.org/2000/svg";
 const ICONS_SPRITE = "./src/assets/img/icons.svg";
 const MAX_AMOUNT_DIGITS = 13;
+const EXPENSES_KEY = "template-base-expenses";
 
 const form = document.querySelector("form");
 const amount = document.getElementById("amount");
@@ -15,6 +16,7 @@ const category = document.getElementById("category");
 const expenseList = document.querySelector("ul");
 const expensesTotal = document.querySelector("aside header h2");
 const expensesQuantity = document.querySelector("aside header p span");
+let expenses = loadExpenses();
 
 function initApp() {
   initTheme();
@@ -27,6 +29,9 @@ function initApp() {
 }
 
 initApp();
+
+renderExpenses(expenses);
+updateTotals();
 
 amount.oninput = () => {
   const digits = amount.value.replace(/\D/g, "").slice(0, MAX_AMOUNT_DIGITS);
@@ -56,13 +61,53 @@ form.onsubmit = (event) => {
     created_at: new Date(),
   };
 
+  expenses = [...expenses, newExpense];
+  saveExpenses();
   expenseAdd(newExpense);
 };
 
+function loadExpenses() {
+  try {
+    const storedExpenses = localStorage.getItem(EXPENSES_KEY);
+
+    if (!storedExpenses) return [];
+
+    const parsedExpenses = JSON.parse(storedExpenses);
+    return Array.isArray(parsedExpenses) ? parsedExpenses : [];
+  } catch (error) {
+    console.warn("Could not load saved expenses:", error);
+    return [];
+  }
+}
+
+function saveExpenses() {
+  try {
+    localStorage.setItem(EXPENSES_KEY, JSON.stringify(expenses));
+  } catch (error) {
+    console.warn("Could not persist expenses:", error);
+  }
+}
+
+function renderExpenses(expenseItems) {
+  expenseList.innerHTML = "";
+
+  expenseItems.forEach((expenseItem) => {
+    expenseList.append(renderExpense(expenseItem));
+  });
+}
+
 function expenseAdd(newExpense) {
+  expenseList.append(renderExpense(newExpense));
+
+  formClear();
+  updateTotals();
+}
+
+function renderExpense(newExpense) {
   try {
     const expenseItem = document.createElement("li");
     expenseItem.classList.add("expense");
+    expenseItem.dataset.expenseId = newExpense.id;
 
     const expenseIcon = document.createElementNS(SVG_NS, "svg");
     expenseIcon.classList.add("expense-icon");
@@ -83,7 +128,9 @@ function expenseAdd(newExpense) {
 
     const expenseAmount = document.createElement("span");
     expenseAmount.classList.add("expense-amount");
-    expenseAmount.innerHTML = `<small>R$</small>${newExpense.amount.toUpperCase().replace("R$", "")}`;
+    const expenseAmountSymbol = document.createElement("small");
+    expenseAmountSymbol.textContent = "R$";
+    expenseAmount.append(expenseAmountSymbol, newExpense.amount.toUpperCase().replace("R$", ""));
 
     const removeIcon = document.createElementNS(SVG_NS, "svg");
     removeIcon.classList.add("remove-icon");
@@ -97,13 +144,13 @@ function expenseAdd(newExpense) {
     expenseInfo.append(expenseName, expenseCategory);
     expenseIcon.appendChild(useEl);
     expenseItem.append(expenseIcon, expenseInfo, expenseAmount, removeIcon);
-    expenseList.append(expenseItem);
 
-    formClear();
-    updateTotals();
+    return expenseItem;
   } catch (error) {
     alert("Não foi possível atualizar a lista de despesas.");
     console.error(error);
+
+    return document.createElement("li");
   }
 }
 
@@ -133,7 +180,7 @@ function updateTotals() {
     total = formatCurrencyBRL(total).toUpperCase().replace("R$", "");
 
     expensesTotal.innerHTML = "";
-    expensesTotal.append(symbolBRL, total);
+    expensesTotal.append(symbolBRL, document.createTextNode(total));
   } catch (error) {
     alert("Não foi possível atualizar a lista de despesas.");
     console.error(error);
@@ -148,6 +195,8 @@ expenseList.addEventListener("click", (event) => {
   const item = removeIcon.closest(".expense");
   if (!item) return;
 
+  expenses = expenses.filter((expenseItem) => String(expenseItem.id) !== item.dataset.expenseId);
+  saveExpenses();
   item.remove();
   updateTotals();
 });
