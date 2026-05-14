@@ -1,6 +1,7 @@
 import "./css/index.css";
 import { initTheme } from "./features/theme/theme.js";
 import { ThemeToggle } from "./components/ThemeToggle/ThemeToggle.js";
+import { loadExpenses, saveExpenses } from "./services/storage.js";
 
 document.documentElement.classList.add("ready");
 
@@ -62,31 +63,9 @@ form.onsubmit = (event) => {
   };
 
   expenses = [...expenses, newExpense];
-  saveExpenses();
+  saveExpenses(expenses);
   expenseAdd(newExpense);
 };
-
-function loadExpenses() {
-  try {
-    const storedExpenses = localStorage.getItem(EXPENSES_KEY);
-
-    if (!storedExpenses) return [];
-
-    const parsedExpenses = JSON.parse(storedExpenses);
-    return Array.isArray(parsedExpenses) ? parsedExpenses : [];
-  } catch (error) {
-    console.warn("Could not load saved expenses:", error);
-    return [];
-  }
-}
-
-function saveExpenses() {
-  try {
-    localStorage.setItem(EXPENSES_KEY, JSON.stringify(expenses));
-  } catch (error) {
-    console.warn("Could not persist expenses:", error);
-  }
-}
 
 function renderExpenses(expenseItems) {
   expenseList.innerHTML = "";
@@ -196,7 +175,7 @@ expenseList.addEventListener("click", (event) => {
   if (!item) return;
 
   expenses = expenses.filter((expenseItem) => String(expenseItem.id) !== item.dataset.expenseId);
-  saveExpenses();
+  saveExpenses(expenses);
   item.remove();
   updateTotals();
 });
