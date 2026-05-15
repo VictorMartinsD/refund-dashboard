@@ -47,6 +47,11 @@ body {
   color: var(--color-text);
 }
 
+main {
+  width: 100%;
+  flex: 1;
+}
+
 .logo {
   width: 102px;
   height: 32px;
@@ -178,6 +183,40 @@ button:hover {
   background-color: color-mix(in srgb, var(--color-accent) 86%, var(--color-accent-contrast) 14%);
 }
 
+.page-footer {
+  width: 100%;
+  margin-top: auto;
+  padding: 0.75rem 1.5rem 1.25rem;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--color-muted);
+}
+
+.page-footer p {
+  margin: 0;
+}
+
+.page-footer a {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, var(--color-border) 65%, var(--color-text) 35%);
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease;
+}
+
+.page-footer a:hover {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+}
+
 form button:last-child {
   margin-top: 2rem;
 }
@@ -306,6 +345,17 @@ aside ul {
   }
 }
 
+.page-footer {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (max-width: 620px) {
+  .page-footer {
+    padding-bottom: 1rem;
+    font-size: 0.74rem;
+  }
+}
 @media (max-width: 1100px) {
   :root {
     font-size: 14px;
