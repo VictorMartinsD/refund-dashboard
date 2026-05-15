@@ -60,17 +60,6 @@ function updateButtonState(button) {
   }
 }
 
-function alignWithLogo(wrapper) {
-  const logo = document.querySelector(".logo");
-  if (!logo) return;
-
-  const logoRect = logo.getBoundingClientRect();
-  const wrapperRect = wrapper.getBoundingClientRect();
-
-  const desiredTop = window.scrollY + logoRect.top + logoRect.height / 2 - wrapperRect.height / 2;
-  wrapper.style.top = `${Math.max(8, desiredTop)}px`;
-}
-
 export function ThemeToggle() {
   const wrapper = document.createElement("div");
   wrapper.className = "theme-toggle-wrapper";
@@ -103,13 +92,7 @@ export function ThemeToggle() {
 
   wrapper.appendChild(button);
 
-  const handleResize = () => alignWithLogo(wrapper);
-
-  setTimeout(() => alignWithLogo(wrapper), 50);
-  window.addEventListener("resize", handleResize);
-
   wrapper.cleanup = () => {
-    window.removeEventListener("resize", handleResize);
     observer.disconnect();
   };
 

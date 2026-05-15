@@ -25,7 +25,12 @@ function initApp() {
   initTheme();
 
   try {
-    document.body.appendChild(ThemeToggle());
+    const mainEl = document.querySelector("main");
+    if (mainEl) {
+      mainEl.prepend(ThemeToggle());
+    } else {
+      document.body.appendChild(ThemeToggle());
+    }
   } catch (error) {
     console.warn("ThemeToggle failed to mount:", error);
   }
