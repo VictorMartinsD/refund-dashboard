@@ -102,8 +102,15 @@ export function ThemeToggle() {
 
   wrapper.appendChild(button);
 
+  const handleResize = () => alignWithLogo(wrapper);
+
   setTimeout(() => alignWithLogo(wrapper), 50);
-  window.addEventListener("resize", () => alignWithLogo(wrapper));
+  window.addEventListener("resize", handleResize);
+
+  wrapper.cleanup = () => {
+    window.removeEventListener("resize", handleResize);
+    observer.disconnect();
+  };
 
   return wrapper;
 }
