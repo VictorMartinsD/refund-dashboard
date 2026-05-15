@@ -2,6 +2,7 @@ import "./css/index.css";
 import { initTheme } from "./features/theme/theme.js";
 import { ThemeToggle } from "./components/ThemeToggle/ThemeToggle.js";
 import { loadExpenses, saveExpenses } from "./services/storage.js";
+import { isNotEmpty, isValidAmount } from "./utils/validators.js";
 
 document.documentElement.classList.add("ready");
 
@@ -52,6 +53,25 @@ function formatCurrencyBRL(value) {
 
 form.onsubmit = (event) => {
   event.preventDefault();
+
+  if (!expense.value.trim()) {
+    alert("Por favor, digite o nome da despesa.");
+    expense.focus();
+    return;
+  }
+
+  if (!isNotEmpty(category.value)) {
+    alert("Por favor, selecione uma categoria.");
+    category.focus();
+    return;
+  }
+
+  const amountValue = amount.value.replace(/\D/g, "").replace(",", ".");
+  if (!isValidAmount(amountValue)) {
+    alert("Por favor, digite um valor maior que zero.");
+    amount.focus();
+    return;
+  }
 
   const newExpense = {
     id: new Date().getTime(),

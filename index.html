@@ -60,6 +60,8 @@
               maxlength="60"
               title="Digite o nome ou descrição da despesa (máximo 60 caracteres)"
               aria-label="Nome da despesa"
+              oninvalid="this.setCustomValidity('Por favor, digite o nome da despesa.')"
+              oninput="this.setCustomValidity('')"
               required />
           </fieldset>
 
@@ -71,6 +73,8 @@
                 name="category"
                 title="Selecione a categoria da despesa"
                 aria-label="Categoria da despesa"
+                oninvalid="this.setCustomValidity('Por favor, selecione uma categoria.')"
+                oninput="this.setCustomValidity('')"
                 required>
                 <option value="" disabled selected hidden>Selecione</option>
                 <option value="food">Alimentação</option>
@@ -90,6 +94,8 @@
                 placeholder="0,00"
                 title="Digite o valor da despesa em reais (ex: 150,00)"
                 aria-label="Valor da despesa em reais"
+                oninvalid="this.setCustomValidity('Por favor, informe o valor da despesa.')"
+                oninput="this.setCustomValidity('')"
                 required />
             </fieldset>
           </div>
