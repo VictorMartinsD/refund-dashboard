@@ -152,6 +152,7 @@ function renderExpense(newExpense) {
 
     const expenseName = document.createElement("strong");
     expenseName.textContent = newExpense.expense;
+    expenseName.title = newExpense.expense;
 
     const expenseCategory = document.createElement("span");
     expenseCategory.textContent = newExpense.category_name;

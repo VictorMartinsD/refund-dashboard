@@ -285,13 +285,21 @@ aside ul {
   max-height: 310px;
   min-height: 310px;
 
-  overflow-y: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+aside ul::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 .expense {
   display: flex;
-  align-items: center;
-  height: 38px;
+  align-items: flex-start;
+  min-height: 38px;
 }
 
 .expense .expense-icon {
@@ -300,16 +308,26 @@ aside ul {
   display: block;
 
   margin-right: 0.75rem;
+  flex-shrink: 0;
 }
 
 .expense > div {
   display: flex;
   flex-direction: column;
   flex: 1;
+  min-width: 0;
 }
 
 .expense-info strong {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  word-break: break-word;
   font-size: 0.87rem;
+  line-height: 1.25;
   color: var(--color-text);
 }
 
@@ -322,6 +340,7 @@ aside ul {
   font-size: 0.87rem;
   color: var(--color-text);
   font-weight: 600;
+  flex-shrink: 0;
 }
 
 .expense-amount small {
@@ -336,6 +355,7 @@ aside ul {
   height: 1rem;
   display: block;
   margin-left: 0.5rem;
+  flex-shrink: 0;
 
   cursor: pointer;
   transition: opacity 0.2s;
