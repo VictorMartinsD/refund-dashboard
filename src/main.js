@@ -1,4 +1,5 @@
 /* eslint-disable sort-imports */
+import iconsSpriteUrl from "./assets/img/icons.svg";
 import "./css/index.css";
 import { ThemeToggle } from "./components/ThemeToggle/ThemeToggle.js";
 import { initTheme } from "./features/theme/theme.js";
@@ -9,7 +10,6 @@ import { isNotEmpty, isValidAmount } from "./utils/validators.js";
 document.documentElement.classList.add("ready");
 
 const SVG_NS = "http://www.w3.org/2000/svg";
-const ICONS_SPRITE = "./src/assets/img/icons.svg";
 const MAX_AMOUNT_DIGITS = 13;
 
 const form = document.querySelector("form");
@@ -140,7 +140,7 @@ function renderExpense(newExpense) {
     expenseIcon.setAttribute("aria-label", newExpense.category_name);
 
     const useEl = document.createElementNS(SVG_NS, "use");
-    useEl.setAttribute("href", `${ICONS_SPRITE}#icon-${newExpense.category_id}`);
+    useEl.setAttribute("href", `${iconsSpriteUrl}#icon-${newExpense.category_id}`);
 
     const expenseInfo = document.createElement("div");
     expenseInfo.classList.add("expense-info");
@@ -163,7 +163,7 @@ function renderExpense(newExpense) {
     removeIcon.setAttribute("aria-label", "Remover despesa");
 
     const removeIconEl = document.createElementNS(SVG_NS, "use");
-    removeIconEl.setAttribute("href", `${ICONS_SPRITE}#icon-remove`);
+    removeIconEl.setAttribute("href", `${iconsSpriteUrl}#icon-remove`);
 
     removeIcon.appendChild(removeIconEl);
     expenseInfo.append(expenseName, expenseCategory);
