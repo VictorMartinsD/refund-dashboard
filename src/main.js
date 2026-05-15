@@ -1,15 +1,16 @@
+/* eslint-disable sort-imports */
 import "./css/index.css";
-import { initTheme } from "./features/theme/theme.js";
 import { ThemeToggle } from "./components/ThemeToggle/ThemeToggle.js";
+import { initTheme } from "./features/theme/theme.js";
 import { loadExpenses, saveExpenses } from "./services/storage.js";
 import { isNotEmpty, isValidAmount } from "./utils/validators.js";
+/* eslint-enable sort-imports */
 
 document.documentElement.classList.add("ready");
 
 const SVG_NS = "http://www.w3.org/2000/svg";
 const ICONS_SPRITE = "./src/assets/img/icons.svg";
 const MAX_AMOUNT_DIGITS = 13;
-const EXPENSES_KEY = "template-base-expenses";
 
 const form = document.querySelector("form");
 const amount = document.getElementById("amount");
@@ -34,12 +35,37 @@ initApp();
 
 renderExpenses(expenses);
 updateTotals();
+let isFormattingAmount = false;
 
 amount.oninput = () => {
-  const digits = amount.value.replace(/\D/g, "").slice(0, MAX_AMOUNT_DIGITS);
-  const value = Number(digits) / 100;
+  if (isFormattingAmount) return;
+  isFormattingAmount = true;
 
-  amount.value = formatCurrencyBRL(value);
+  const digits = amount.value.replace(/\D/g, "").slice(0, MAX_AMOUNT_DIGITS);
+
+  if (!digits) {
+    amount.value = "";
+    isFormattingAmount = false;
+    return;
+  }
+
+  const numericValue = parseInt(digits, 10) / 100;
+  amount.value = formatCurrencyBRL(numericValue);
+  amount.selectionStart = amount.selectionEnd = amount.value.length;
+
+  isFormattingAmount = false;
+};
+
+amount.onblur = () => {
+  if (!amount.value) return;
+
+  const digits = amount.value.replace(/\D/g, "").slice(0, MAX_AMOUNT_DIGITS);
+  if (!digits) return;
+
+  const numericValue = parseInt(digits, 10) / 100;
+  if (numericValue > 0) {
+    amount.value = formatCurrencyBRL(numericValue);
+  }
 };
 
 function formatCurrencyBRL(value) {
@@ -66,7 +92,7 @@ form.onsubmit = (event) => {
     return;
   }
 
-  const amountValue = amount.value.replace(/\D/g, "").replace(",", ".");
+  const amountValue = amount.value.replace(/[^\d,]/g, "").replace(",", ".");
   if (!isValidAmount(amountValue)) {
     alert("Por favor, digite um valor maior que zero.");
     amount.focus();
