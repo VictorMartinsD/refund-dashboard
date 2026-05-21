@@ -53,7 +53,7 @@ A aplicação trabalha com estado local, persistência no próprio dispositivo e
 
 <div align="center">
 
-<img width="1146" height="644" alt="Captura de tela do Dashboard de Reembolso no tema escuro, exibindo o formulário de solicitação e uma lista de 6 despesas com totalizador." src="https://github.com/user-attachments/assets/12bfb293-24b2-4253-b81b-8bd7cb68a8bf" />
+<img width="1388" height="924" alt="Mockup realista mostrando a interface do projeto Refund em duas telas: um laptop à esquerda exibindo a versão web em modo escuro (Dark Mode) e um iPhone 14 Pro à direita mostrando a versão mobile em modo claro (Light Mode). Ambas as telas exibem o dashboard de solicitação de reembolso com uma lista de despesas." src="https://github.com/user-attachments/assets/fb2c2870-afe9-43f2-9311-f4035e4b86ff" />
 
 </div>
 
